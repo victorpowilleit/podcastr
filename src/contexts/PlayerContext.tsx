@@ -13,6 +13,7 @@ type PlayerContextData = {
   currentEpisodeIndex: number;
   isPlaying: boolean;
   isLooping: boolean;
+  isShuffling: boolean;
   play: (episode: Episode) => void;
   playList: (list: Episode[], index: number) => void;
   hasNext: boolean;
@@ -21,6 +22,7 @@ type PlayerContextData = {
   playPrevious: () =>void;
   togglePlay: () => void;
   toggleLoop: () => void;
+  toggleShuffle: () => void;
   setPlayingState: (state: boolean) => void;
 }
 
@@ -35,6 +37,7 @@ export function PlayerContextProvider({ children }: PlayerContentProviderProps) 
   const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const [isLooping, setIsLooping] = useState(false)
+  const [isShuffling, setIsShuffling] = useState(false)
 
   const play = (episode: Episode) => {
     setEpisodeList([episode])
@@ -53,7 +56,11 @@ export function PlayerContextProvider({ children }: PlayerContentProviderProps) 
   }
 
   const toggleLoop = () => {
-    setIsLooping(!isPlaying)
+    setIsLooping(!isLooping)
+  }
+
+  const toggleShuffle = () => {
+    setIsShuffling(!isShuffling)
   }
 
   const setPlayingState = (state: boolean) => {
@@ -64,6 +71,11 @@ export function PlayerContextProvider({ children }: PlayerContentProviderProps) 
   const hasPrev = currentEpisodeIndex > 0
 
   const playNext = () => {
+    if (isShuffling){
+      const nextRandomEpisodeIndex = Math.floor(Math.random()*episodeList.length)
+      setCurrentEpisodeIndex(nextRandomEpisodeIndex)
+    }
+    else
     if (hasNext) {
       setCurrentEpisodeIndex(currentEpisodeIndex + 1)
     }
@@ -80,6 +92,7 @@ export function PlayerContextProvider({ children }: PlayerContentProviderProps) 
       currentEpisodeIndex,
       isPlaying,
       isLooping,
+      isShuffling,
       play,
       playList,
       hasNext,
@@ -88,6 +101,7 @@ export function PlayerContextProvider({ children }: PlayerContentProviderProps) 
       playPrevious,
       togglePlay,
       toggleLoop,
+      toggleShuffle,
       setPlayingState
     }}>
       {children}
