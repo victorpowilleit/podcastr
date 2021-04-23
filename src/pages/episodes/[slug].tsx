@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import database from '../../server/firebase'
 import convertDurationToTimeString from '../../utils/convertDurationToTimeString';
+import Head from 'next/head'
 
 import styles from './episode.module.scss'
 import { usePlayer } from '../../contexts/PlayerContext';
@@ -34,7 +35,10 @@ export default function Episode({ episode }: EpisodeProps) {
     const{ play } = usePlayer()
     
     return (
-        <div className={styles.episode}>{episode.title}
+        <div className={styles.episode}>
+          <Head>
+            <title>{episode.title}</title>
+          </Head>
             <div className={styles.thumbnailContainer}>
                 <Link href="/">
                     <button type="button">
