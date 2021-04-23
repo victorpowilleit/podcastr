@@ -1,5 +1,7 @@
 module.exports = {
-    images:{
-        domains: ['storage.googleapis.com']
-    }
+  images: {
+    // loader: "imgix",
+    // path: "https://noop/",
+    domains: ['storage.googleapis.com']
+  }
 }
