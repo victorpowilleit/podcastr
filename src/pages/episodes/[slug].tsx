@@ -7,6 +7,7 @@ import database from '../../server/firebase'
 import convertDurationToTimeString from '../../utils/convertDurationToTimeString';
 
 import styles from './episode.module.scss'
+import { usePlayer } from '../../contexts/PlayerContext';
 
 type Episode = {
     id: string;
@@ -29,6 +30,9 @@ export default function Episode({ episode }: EpisodeProps) {
     // const router = useRouter();
     // const slug =  router.query.slug
     // return <h1>{slug}</h1>
+
+    const{ play } = usePlayer()
+    
     return (
         <div className={styles.episode}>{episode.title}
             <div className={styles.thumbnailContainer}>
@@ -38,7 +42,7 @@ export default function Episode({ episode }: EpisodeProps) {
                     </button>
                 </Link>
                 <Image width={700} height={160} src={episode.thumbnail} objectFit="cover" />
-                <button type="button">
+                <button type="button" onClick={()=>play(episode)}>
                     <img src="/play.svg" alt="Tocar episódio" />
                 </button>
             </div>
