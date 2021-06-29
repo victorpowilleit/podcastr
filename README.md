@@ -8,4 +8,4 @@ Podcastr é um projeto desenvolvido na quinta edição da NLW (NextLevel Week) d
 
 Maiores detalhes em breve
 
-###README em construção 
+### README EM CONSTRUÇÃO 
